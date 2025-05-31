@@ -1,0 +1,12 @@
+.usrnmpswd{
+  height: 40%;
+}
+.loginbutton {
+  height: 5vh;
+}
+
+@media (min-width: 768px) {
+  .usrnmpswd{
+    height:47%;
+  }
+}

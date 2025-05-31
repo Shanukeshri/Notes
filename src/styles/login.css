@@ -1,0 +1,157 @@
+html,
+body {
+  overflow: hidden;
+  font-family: "WDXL Lubrifont TC", sans-serif;
+  letter-spacing: 0.01em;
+}
+
+html {
+  background: url("../assets/mobile.webp") center no-repeat;
+}
+
+html::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0,0,0,0.5);
+  z-index: -1;
+}
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+.headerflex {
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon {
+  height: 10vh;
+  width: 10vh;
+  background-color: var(--acc);
+  border-radius: 5vh;
+}
+
+.iconimg {
+  height: 100%;
+  width: auto;
+}
+
+.heading {
+  color: var(--acc);
+  width: 100%;
+  text-align: center;
+  font-size: clamp(4vw, 7vw, 9vw);
+  font-weight: 900;
+}
+
+.usrnmpswd {
+  background-color: var(--sec);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -40%);
+  padding: 3vh 2vh 3vh 2vh;
+  height: 34%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5vh;
+  box-shadow: 0px 0px 1vh black;
+}
+
+.inputflex {
+  margin: 3vh 0vh 3vh 0vh;
+}
+
+.usnminput {
+  outline: none;
+  background-color: rgb(230, 230, 230);
+  height: 4vh;
+  width: 65vw;
+  padding: 1vw 2vw 1vw 3vw;
+  margin-bottom: 1vh;
+  border-radius: 1.5vh;
+  border: none;
+  box-shadow: 0px 0px 1vh black;
+  font-weight: 900;
+}
+
+.usnminput::placeholder{
+  color:rgb(98, 98, 98);
+}
+
+.belowText {
+  text-align: center;
+  font-size: 0.99em;
+}
+
+.loginbutton {
+  outline: none;
+  height: 4vh;
+  width: 100%;
+  background-color: var(--acc);
+  border: none;
+  border-radius: 3vh;
+  box-shadow: 0px 0px 1vh 0px rgba(9, 9, 9, 0.479);
+  cursor: pointer;
+  transition: box-shadow 0.1s;
+}
+.loginbutton:active {
+  box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+/* Desktop and up */
+@media (min-width: 768px) {
+  html {
+    background: url("../assets/desktop.webp") center no-repeat;
+  }
+
+  .heading {
+    font-size: clamp(2vw, 3.5vw, 6vw);
+  }
+
+  .usrnmpswd {
+    top: 57%;
+    padding: 3vh 3vh 3vh 3vh;
+    height: 40%;
+    width:32vw;
+  }
+
+  .inputflex {
+    margin: 3vh 0vh 3vh 0vh;
+  }
+
+  .usnminput {
+    height: 4vh;
+    width: 27.5vw;
+    padding: 1vw 2vw 1vw 3vw;
+    margin:0vh;
+    margin-bottom: 1vh;
+    font-size:larger;
+  }
+
+
+.usnminput::placeholder{
+  color:rgb(98, 98, 98);
+}
+
+  .belowText {
+    text-align: center;
+    font-size: 1.4em;
+  }
+
+  .loginbutton {
+    width: 100%;
+    font-size: 1em;
+    font-weight: bolder;
+  }
+
+}
