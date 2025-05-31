@@ -1,6 +1,7 @@
 import icon from "../assets/icon.png";
 import "../styles/dashboard.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Sidebar from "../pages/Sidebar";
 
 const notes = [
   { title: "hi", body: "hi i am shanu1 " },
@@ -18,9 +19,20 @@ function Dashboard() {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => {
     setOpen(!open);
-
-
+    console.log(open); //debug
   };
+
+  useEffect(() => {
+    if (open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  });
 
   return (
     <>
@@ -44,14 +56,7 @@ function Dashboard() {
 
       <button className="add">+</button>
 
-      {/* yaha se sidebar */}
-      {open && <div className="back-dark" onClick={toggleOpen}></div>}
-      <div className={`sidebar ${open ? "open" : ""}`}>
-        <div className="icon">
-          <img className="iconimg" src={icon} />
-        </div>
-        <button className="sidebar-button">Logout</button>
-      </div>
+      <Sidebar open={open} setOpen={setOpen}></Sidebar>
     </>
   );
 }
