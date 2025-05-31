@@ -131,7 +131,7 @@ html::before {
 .icon {
   position:fixed;
   top:1vh;
-  left:1vh;
+  left:3vh;
   height: 10vh;
   width: 10vh;
   background-color: var(--acc);
