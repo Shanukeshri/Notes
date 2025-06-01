@@ -21,7 +21,7 @@ function Login() {
           ></input>
         </div>
         <p className="belowText">
-          Don't have an account? <span>Register.. </span>
+          Don't have an account? <span >Register.. </span>
         </p>
         <button className="loginbutton">Log In</button>
       </div>
