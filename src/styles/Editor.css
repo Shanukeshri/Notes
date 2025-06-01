@@ -1,0 +1,77 @@
+html {
+  background-color: var(--pri);
+}
+
+.title {
+  z-index: 991;
+  width: 80vw;
+  height: 3vh;
+  left: 7vw;
+  padding: 2vh 3vw 2cqmax 3vw;
+  top: 13vh;
+  border: none;
+  border-bottom: solid 1px black;
+  position: fixed;
+  background-color: var(--sec);
+  font-size: 2.9vh;
+  font-weight: 900;
+  border-top-left-radius: 2vh;
+  border-top-right-radius: 2vh;
+}
+.title:focus {
+  outline: none;
+}
+
+.textarea {
+  z-index: 990;
+  position: fixed;
+  top: 13vh;
+  left: 5vw;
+  height: 60vh;
+  width: 76vw;
+  background-color: var(--sec);
+  border-radius: 3vh;
+  border: none;
+  padding: 12vh 7vw 3vh 7vw;
+  box-shadow: 0px 0px 2vh rgba(0, 0, 0, 0.517);
+  font-size: 2.3vh;
+  font-weight: 700;
+}
+.textarea:focus {
+  outline: none;
+}
+
+.status {
+  z-index: 990;
+  position: fixed;
+  top: 86vh;
+  left: 6.5vw;
+  color: rgb(83, 82, 82);
+}
+
+@media (min-width: 768px) {
+  .title {
+
+    width: 86vw;
+    height: 3vh;
+    left: 4vw;
+    padding: 2vh 3vw 2vh 3vw;
+    top: 15vh;
+    font-size: 2.9vh;
+
+  }
+
+  .textarea {
+    top: 15vh;
+    left: 3vw;
+    height: 60vh;
+    width: 84vw;
+    padding: 12vh 5vw 3vh 5vw;
+    box-shadow: 0px 0px 2vh rgba(0, 0, 0, 0.517);
+    font-size: 2.3vh;
+  }
+  .status {
+  top: 88vh;
+  left: 4vw;
+}
+}

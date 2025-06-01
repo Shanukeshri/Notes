@@ -1,59 +1,82 @@
+.imgheader{
+  box-shadow:0px 0p;
+}
+
+.header {
+  margin: 0;
+  top: 0vh;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  position: fixed;
+  height: 12vh;
+  width: 100%;
+  background-color: var(--pri);
+  padding: 0px 0px 0px 2vw;
+}
+.heading {
+  z-index: 997;
+  background-color: transparent;
+  width: 25vh;
+  border: none;
+  margin: 0px;
+  margin-top: 1vh;
+  color: var(--acc);
+  font-size: clamp(6vh, 9vh, 12vh);
+  cursor: pointer;
+}
+
 .back-dark {
   position: fixed;
   left: 0px;
   top: 0px;
-  z-index: 995;
+  z-index: 998;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.5);
 }
 
 .sidebar {
-  padding:0px;
-  padding-top:12.1vh;
-  z-index: 996;
+  padding: 0px;
+  padding-top: 8.1vh;
+  z-index: 999;
   position: fixed;
   top: 0%;
   left: 0;
-  display:grid;
-  grid-template-columns: 1fr;
   background-color: var(--pri);
   height: 100%;
   width: 45%;
   transform: translateX(-100%);
   transition: transform 0.3s ease-in-out;
-  box-shadow:0px 0px 3vh rgba(0, 0, 0, 0.429);
+  box-shadow: 0px 0px 3vh rgba(0, 0, 0, 0.429);
 }
 
 .sidebar.open {
   transform: translateX(0%);
 }
 
-.sidebar-button{
-
-  height:7vh;
-  width:80%;
-  margin:10%;
+.sidebar-button {
+  height: 7vh;
+  width: 80%;
+  margin: 10%;
   background-color: var(--pri);
-  border:none;
+  border: none;
   border-radius: 2vh;
-  box-shadow:inset 0px 0px 15px rgba(0, 0, 0, 0.515);
+  box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.515);
   font-size: large;
   font-weight: bolder;
-
 }
-.sidebar-button:active{
-    box-shadow:inset 0px 0px 15px rgba(0, 0, 0, 0.115);
-
+.sidebar-button:active {
+  box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.115);
 }
-
 
 .icon {
-  position:fixed;
-  top:1vh;
-  left:3vh;
-  height: 10vh;
-  width: 10vh;
+  position: fixed;
+  top: 1vh;
+  left: 3vh;
+  height: 7vh;
+  width: 7vh;
   background-color: var(--acc);
   border-radius: 5vh;
 }
@@ -65,8 +88,12 @@
 
 /* Desktop and up */
 @media (min-width: 768px) {
-  .sidebar {   
+  .sidebar {
+    padding-top: 12.1vh;
     width: 25%;
-
+  }
+  .icon {
+    height: 10vh;
+    width: 10vh;
   }
 }

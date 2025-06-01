@@ -1,10 +1,10 @@
-import Dashboard from "../src/pages/Dashboard.jsx"
+import Editor from "../src/pages/Editor"
 
 function App() {
 
   return (
     <>
-      <Dashboard/>
+      <Editor/>
     </>
   )
 }
