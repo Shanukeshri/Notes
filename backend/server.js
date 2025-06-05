@@ -3,10 +3,10 @@ const cookieParser = require("cookie-parser");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
-const user = require("./user.cjs");
+const user = require("./user.js");
 const authRouter = require("./authRouter").router;
 const noteRouter = require("./notesRouter");
-const accessTokenCreate = require("./authRoute").accessToken;
+const accessTokenCreate = require("./authRouter").accessToken;
 const cors = require("cors")
 const rateLimit = require("express-rate-limit")
 

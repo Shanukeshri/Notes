@@ -1,6 +1,6 @@
 require("dotenv").config();
 const router = require("express").Router();
-const note = require("./notes.cjs");
+const note = require("./notes.js");
 const jwt = require("jsonwebtoken");
 
 router.get("/", async (req, res) => {
