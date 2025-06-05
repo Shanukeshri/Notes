@@ -30,7 +30,10 @@ app.use(express.json());
 app.use(cookieParser());
 
 mongoose
-  .connect(process.env.MONGO_URL)
+  .connect(process.env.MONGO_URL|| "mongodb://localhost:27017/notes_backend", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.error("MongoDB error:", err));
 

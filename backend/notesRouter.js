@@ -14,24 +14,24 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  if (!req.body.note) {
+  if (!req.body.body) {
     return res.status(400).json({ msg: "No note present to be added" });
   }
   const username = req.username;
 
-  const { title, note } = req.body;
+  const { title, body } = req.body;
 
   const newNote = new note({
     username,
     title,
-    note,
+    body,
   });
   await newNote.save();
   return res.status(200).json({ msg: "Note Added Successfully" });
 });
 
 router.put("/", async (req, res) => {
-  const { _id, title, note } = req.body;
+  const { _id, title, body } = req.body;
   try {
     const noteFound = await note.findById(_id);
     if (!noteFound) {
@@ -43,12 +43,12 @@ router.put("/", async (req, res) => {
       return res.status(401).json({ msg: "unauthorise" });
     }
     noteFound.title = title;
-    noteFound.note = note;
+    noteFound.body = body;
     noteFound.dateUpdated = Date.now();
     await noteFound.save();
     return res.status(200).json({ msg: "updated" });
   } catch (e) {
-    console.log("error", e);
+    console.log("error : ", e);
     return res.status(400).json({ msg: `error:${e}` });
   }
 });

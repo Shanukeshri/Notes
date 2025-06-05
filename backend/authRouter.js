@@ -7,13 +7,14 @@ const user = require("./user");
 const router = express.Router();
 
 const accessToken = (payload) => {
-  return jwt.sign(payload, process.env.Access_token_key, { expiresIn: "8s" });
+  return jwt.sign(payload, process.env.Access_token_key, { expiresIn: "10m" });
 };
 const refreshToken = (payload) => {
-  return jwt.sign(payload, process.env.Refresh_token_key, { expiresIn: `32s` });
+  return jwt.sign(payload, process.env.Refresh_token_key, { expiresIn: `5d` });
 };
 
 router.post("/register", async (req, res) => {
+
   const { username, password, email } = req.body;
 
   const exist = await user.findOne({ username });
@@ -66,8 +67,10 @@ router.post("/login", async (req, res) => {
 
 router.post("/logout", async (req, res) => {
   try {
-    const username = req.username;
-    const userInstance = await user.findOne({ username });
+    const payload = await jwt.verify(req.cookies.accessToken , process.env.Access_token_key)
+    const username = payload.username
+    const userInstance = await user.findOne({ username:username });
+
     userInstance.tokenVersion += 1;
     await userInstance.save();
     res.clearCookie("accessToken");
