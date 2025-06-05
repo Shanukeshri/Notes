@@ -1,14 +1,19 @@
 import "../styles/login.css";
 import icon from "../assets/icon.png"
+import {useNavigate} from "react-router-dom"
+
 
 function Login() {
+
+  const nav = useNavigate()
+
   return (
     <>
       <div className="headerflex">
-        <div className="icon">
+        <div className="iconholder">
           <img className="iconimg" src={icon} />
         </div>
-        <p className="heading">Login To Cloud Editor</p>
+        <p className="headingtext">Login To Cloud Editor</p>
       </div>
 
       <div className="usrnmpswd">
@@ -21,7 +26,7 @@ function Login() {
           ></input>
         </div>
         <p className="belowText">
-          Don't have an account? <span >Register.. </span>
+          Don't have an account? <span onClick={()=>nav("/register")}>Register.. </span>
         </p>
         <button className="loginbutton">Log In</button>
       </div>

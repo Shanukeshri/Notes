@@ -32,7 +32,7 @@ html::before {
   align-items: center;
 }
 
-.icon {
+.iconholder {
   height: 10vh;
   width: 10vh;
   background-color: var(--acc);
@@ -44,7 +44,7 @@ html::before {
   width: auto;
 }
 
-.heading {
+.headingtext {
   color: var(--acc);
   width: 100%;
   text-align: center;
@@ -114,7 +114,7 @@ html::before {
     background: url("../assets/desktop.webp") center no-repeat;
   }
 
-  .heading {
+  .headingtext{
     font-size: clamp(2vw, 3.5vw, 6vw);
   }
 

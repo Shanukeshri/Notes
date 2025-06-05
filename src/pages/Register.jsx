@@ -1,15 +1,21 @@
 import "../styles/login.css";
 import "../styles/register.css"
 import icon from "../assets/icon.png";
+import {useNavigate} from "react-router-dom"
 
 function Register() {
+
+    const nav = useNavigate()
+  
+
+
   return (
     <>
       <div className="headerflex">
-        <div className="icon">
+        <div className="iconholder">
           <img className="iconimg" src={icon} />
         </div>
-        <p className="heading">Register For Cloud Editor</p>
+        <p className="headingtext">Register For Cloud Editor</p>
       </div>
 
       <div className="usrnmpswd">
@@ -19,7 +25,7 @@ function Register() {
           <input type="password" className="usnminput" placeholder="Password"></input>
         </div>
         <p className="belowText">
-          Already have an account? <span>Login.. </span>
+          Already have an account? <span onClick={()=>nav('/')}>Login... </span>
         </p>
         <button className="loginbutton">Register</button>
       </div>
