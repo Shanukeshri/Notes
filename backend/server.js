@@ -108,6 +108,6 @@ const authenticate = async (req, res, next) => {
 app.use("/auth", authRouter);
 app.use("/note", authenticate, noteRouter);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("server connected");
 });
