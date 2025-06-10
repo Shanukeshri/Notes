@@ -14,8 +14,11 @@ const refreshToken = (payload) => {
 };
 
 router.post("/register", async (req, res) => {
-
   const { username, password, email } = req.body;
+
+  if (!username || !password || !email) {
+    return res.status(403).json({ msg: "All Field Required" });
+  }
 
   const exist = await user.findOne({ username });
   if (exist) {
@@ -30,16 +33,23 @@ router.post("/register", async (req, res) => {
   });
   await newUser.save();
   res.cookie("accessToken", accessToken({ username, tokenVersion: 0 }), {
-    httpOnly: true /*, secure:true , sameSite :"None" */,
+    httpOnly: true,
+    secure: true,
+    sameSite:"none",
   });
   res.cookie("refreshToken", refreshToken({ username, tokenVersion: 0 }), {
-    httpOnly: true /*, secure:true , sameSite :"None" */,
+    httpOnly: true,
+    secure: true,
+    sameSite:"none",
   });
   return res.status(200).json({ msg: "Registered" });
 });
 
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(403).json({ msg: "All Field Required" });
+  }
   const exist = await user.findOne({ username });
   if (!exist) {
     return res.status(400).json({ msg: "Username Don't exists" });
@@ -55,21 +65,30 @@ router.post("/login", async (req, res) => {
   res.cookie(
     "accessToken",
     accessToken({ username, tokenVersion: exist.tokenVersion }),
-    { httpOnly: true /*, secure:true , sameSite :"None" */ }
+    { httpOnly: true,
+    secure: true,
+    sameSite:"none", }
   );
   res.cookie(
     "refreshToken",
     refreshToken({ username, tokenVersion: exist.tokenVersion }),
-    { httpOnly: true /*, secure:true , sameSite :"None" */ }
+    { httpOnly: true,
+    secure: true,
+    sameSite:"none", }
   );
   return res.status(200).json({ msg: "Logged In" });
 });
 
 router.post("/logout", async (req, res) => {
+  console.log("logout attempted") //debug
+
   try {
-    const payload = await jwt.verify(req.cookies.accessToken , process.env.Access_token_key)
-    const username = payload.username
-    const userInstance = await user.findOne({ username:username });
+    const payload = await jwt.verify(
+      req.cookies.refreshToken,
+      process.env.Refresh_token_key
+    );
+    const username = payload.username;
+    const userInstance = await user.findOne({ username: username });
 
     userInstance.tokenVersion += 1;
     await userInstance.save();
@@ -77,9 +96,8 @@ router.post("/logout", async (req, res) => {
     res.clearCookie("refreshToken");
     return res.status(200).json({ msg: "Logged Out" });
   } catch (e) {
-    console.log("Error while logging out :" , e)
+    console.log("Error while logging out :", e);
     return res.status(400).json({ msg: "Error While logging out" });
-
   }
 });
 

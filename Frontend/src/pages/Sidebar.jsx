@@ -1,9 +1,59 @@
-import "../styles/sidebar.css";
+import style from "../styles/sidebar.module.css";
 import icon from "../assets/icon.png";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Popup from "./Popup";
+
+const Backend_url = import.meta.env.VITE_BACKEND_URL
 
 function Sidebar() {
+  const nav = useNavigate();
+
+  const [popupShow, setPopupShow] = useState(false);
+  const [popupProp, setPopupProp] = useState({
+    msg: "Some Error Occurred",
+    isSuccess: false,
+  });
+
   const [open, setOpen] = useState(false);
+
+  const logoutHandler = async () => {
+    try {
+       console.log("debug") //debug
+      const fetchRes = await fetch(Backend_url+"/auth/logout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      });
+     
+      const res = await fetchRes.json();
+      
+
+      if (fetchRes.ok) {
+
+        setTimeout(() => {
+          nav("/login")
+        }, 1000);
+
+        setPopupProp((p) => ({
+          ...p,
+          msg: res.msg,
+          isSuccess: fetchRes.ok,
+        }));
+        setPopupShow(true);
+      }
+    } 
+    catch (e) {
+      setPopupProp((p) => ({
+        ...popupProp,
+        msg: "Network error",
+        isSuccess: false,
+      }));
+      setPopupShow(true);
+    }
+  };
 
   const toggleOpen = () => {
     setOpen(!open);
@@ -24,20 +74,24 @@ function Sidebar() {
 
   return (
     <>
-      <div className="header">
-        <button className="heading" onClick={toggleOpen}>
+      {popupShow && <Popup {...popupProp} setPopupShow={setPopupShow} />}
+
+      <div className={style.header}>
+        <button className={style.heading} onClick={toggleOpen}>
           Notes
         </button>
       </div>
 
-      {open && <div className="back-dark" onClick={toggleOpen}></div>}
-      <div className={`sidebar ${open ? "open" : ""}`}>
-        <div className="imgheader">
-          <div className="icon">
-            <img className="iconimg" src={icon} />
+      {open && <div className={style.backdark} onClick={toggleOpen}></div>}
+      <div className={`${style.sidebar} ${open ? style.open : ""}`}>
+        <div className={style.imgheader}>
+          <div className={style.icon}>
+            <img className={style.iconimg} src={icon} />
           </div>
         </div>
-        <button className="sidebar-button">Logout</button>
+        <button className={style.sidebarbutton} onClick={logoutHandler}>
+          Logout
+        </button>
       </div>
     </>
   );

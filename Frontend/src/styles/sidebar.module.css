@@ -11,9 +11,12 @@
   justify-content: center;
   position: fixed;
   height: 12vh;
-  width: 100%;
+  left:6px;
+  right:6px;
   background-color: var(--pri);
   padding: 0px 0px 0px 2vw;
+  box-shadow:0px 1px 0px rgba(0, 0, 0, 0.157);
+
 }
 .heading {
   z-index: 997;
@@ -27,7 +30,7 @@
   cursor: pointer;
 }
 
-.back-dark {
+.backdark {
   position: fixed;
   left: 0px;
   top: 0px;
@@ -56,7 +59,7 @@
   transform: translateX(0%);
 }
 
-.sidebar-button {
+.sidebarbutton {
   height: 7vh;
   width: 80%;
   margin: 10%;
@@ -66,6 +69,7 @@
   box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.515);
   font-size: large;
   font-weight: bolder;
+  cursor:pointer;
 }
 .sidebar-button:active {
   box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.115);
@@ -73,12 +77,13 @@
 
 .icon {
   position: fixed;
-  top: 1vh;
-  left: 3vh;
+  top: 2vh;
+  left: 50%;
   height: 7vh;
   width: 7vh;
   background-color: var(--acc);
   border-radius: 5vh;
+  transform: translateX(-50%);
 }
 
 .iconimg {

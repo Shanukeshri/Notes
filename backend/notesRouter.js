@@ -4,6 +4,9 @@ const note = require("./notes.js");
 const jwt = require("jsonwebtoken");
 
 router.get("/", async (req, res) => {
+
+  console.log("data fetch tried")  //debug
+
   const username = req.username;
   const noteArray = await note.find({ username }).sort({ dateUpdated: -1 });
   if (noteArray.length == 0) {

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+  import { useEffect, useState, useRef } from "react";
 import "../styles/Editor.css";
 
 import Sidebar from "./Sidebar";

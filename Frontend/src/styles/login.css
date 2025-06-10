@@ -93,6 +93,12 @@ html::before {
   font-size: 0.99em;
 }
 
+.clickableText{
+  color:var(--acc);
+  cursor: pointer;
+}
+
+
 .loginbutton {
   outline: none;
   height: 4vh;
