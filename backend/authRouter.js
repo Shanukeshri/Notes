@@ -33,12 +33,14 @@ router.post("/register", async (req, res) => {
   });
   await newUser.save();
   res.cookie("accessToken", accessToken({ username, tokenVersion: 0 }), {
+      path: "/",  
     httpOnly: true,
     secure: true,
     sameSite: "none",
     maxAge: 10 * 60 * 1000,
   });
   res.cookie("refreshToken", refreshToken({ username, tokenVersion: 0 }), {
+      path: "/",  
     httpOnly: true,
     secure: true,
     sameSite: "none",
@@ -64,12 +66,12 @@ router.post("/login", async (req, res) => {
   await exist.save();
   res.cookie(
     "accessToken",accessToken({ username, tokenVersion: exist.tokenVersion }),
-    { httpOnly: true, secure: true, sameSite: "none", maxAge: 10 * 60 * 1000 }
+    {   path: "/",  httpOnly: true, secure: true, sameSite: "none", maxAge: 10 * 60 * 1000 }
   );
   res.cookie(
     "refreshToken",
     refreshToken({ username, tokenVersion: exist.tokenVersion }),
-    { httpOnly: true, secure: true, sameSite: "none", maxAge: 5*24*60 * 60 * 1000 }
+    {   path: "/",  httpOnly: true, secure: true, sameSite: "none", maxAge: 5*24*60 * 60 * 1000 }
   );
   return res.status(200).json({ msg: "Logged In" });
 });

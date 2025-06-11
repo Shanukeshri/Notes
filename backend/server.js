@@ -103,6 +103,7 @@ const authenticate = async (req, res, next) => {
         tokenVersion: refreshPayload.tokenVersion,
       });
       res.cookie("accessToken", newToken, {
+          path: "/",  
         httpOnly: true,
         secure: true,
         sameSite: "none",
