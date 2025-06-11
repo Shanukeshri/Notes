@@ -60,8 +60,6 @@ router.post("/login", async (req, res) => {
   }
   exist.tokenVersion += 1;
   await exist.save();
-  res.clearCookie("accessToken");
-  res.clearCookie("refreshToken");
   res.cookie(
     "accessToken",
     accessToken({ username, tokenVersion: exist.tokenVersion }),

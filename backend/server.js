@@ -83,7 +83,6 @@ const authenticate = async (req, res, next) => {
         console.log("user : ", userInstance, "\npayload : ", refreshPayload); //debug
         return res.status(401).json({ msg: "Unauthorised 3" });
       }
-      res.clearCookie("accessToken");
       const newToken = accessTokenCreate({
         username: refreshPayload.username,
         tokenVersion: refreshPayload.tokenVersion,
