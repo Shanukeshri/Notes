@@ -35,12 +35,14 @@ router.post("/register", async (req, res) => {
   res.cookie("accessToken", accessToken({ username, tokenVersion: 0 }), {
     httpOnly: true,
     secure: true,
-    sameSite:"none",
+    sameSite: "none",
+    maxAge: 10 * 60 * 1000,
   });
   res.cookie("refreshToken", refreshToken({ username, tokenVersion: 0 }), {
     httpOnly: true,
     secure: true,
-    sameSite:"none",
+    sameSite: "none",
+    maxAge: 5*24*60 * 60 * 1000,
   });
   return res.status(200).json({ msg: "Registered" });
 });
@@ -61,24 +63,19 @@ router.post("/login", async (req, res) => {
   exist.tokenVersion += 1;
   await exist.save();
   res.cookie(
-    "accessToken",
-    accessToken({ username, tokenVersion: exist.tokenVersion }),
-    { httpOnly: true,
-    secure: true,
-    sameSite:"none", }
+    "accessToken",accessToken({ username, tokenVersion: exist.tokenVersion }),
+    { httpOnly: true, secure: true, sameSite: "none", maxAge: 10 * 60 * 1000 }
   );
   res.cookie(
     "refreshToken",
     refreshToken({ username, tokenVersion: exist.tokenVersion }),
-    { httpOnly: true,
-    secure: true,
-    sameSite:"none", }
+    { httpOnly: true, secure: true, sameSite: "none", maxAge: 5*24*60 * 60 * 1000 }
   );
   return res.status(200).json({ msg: "Logged In" });
 });
 
 router.post("/logout", async (req, res) => {
-  console.log("logout attempted") //debug
+  console.log("logout attempted"); //debug
 
   try {
     const payload = await jwt.verify(

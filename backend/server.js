@@ -106,6 +106,7 @@ const authenticate = async (req, res, next) => {
         httpOnly: true,
         secure: true,
         sameSite: "none",
+        maxAge: 10 * 60 * 1000,
       });
       req.cookies.accessToken = newToken;
       return authenticate(req, res, next);
