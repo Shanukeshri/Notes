@@ -11,7 +11,7 @@ const cors = require("cors");
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:5173","https://notes-hri418td4-shanus-projects-777f6fb2.vercel.app/login"];
+const allowedOrigins = ["http://localhost:5173","https://notes-hri418td4-shanus-projects-777f6fb2.vercel.app"];
 
 app.use(
   cors({
