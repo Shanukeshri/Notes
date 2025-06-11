@@ -11,12 +11,14 @@ const cors = require("cors");
 
 const app = express();
 
-const allowedOrigins = ["http://localhost:5173","https://notes-frontend-rb43.onrender.com"];
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://notes-frontend-rb43.onrender.com",
+];
 
 app.use(
   cors({
     origin: function (origin, callback) {
-
       if (!origin || allowedOrigins.includes(origin)) {
         callback(null, origin);
       } else {
@@ -27,8 +29,22 @@ app.use(
   })
 );
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header("Access-Control-Allow-Origin", "https://notes-frontend-rb43.onrender.com");
+  res.header(
+    "Access-Control-Allow-Methods",
+    "GET,PUT,POST,DELETE,UPDATE,OPTIONS"
+  );
+  res.header(
+    "Access-Control-Allow-Headers",
+    "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
+  );
+  next();
+});
+
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Credentials', 'true');
+  res.header("Access-Control-Allow-Credentials", "true");
   next();
 });
 
@@ -43,8 +59,7 @@ mongoose
   .catch((err) => console.error("MongoDB error:", err));
 
 const authenticate = async (req, res, next) => {
-
-  console.log("Authenticate middleware hit") //debug
+  console.log("Authenticate middleware hit"); //debug
 
   const accessToken = req.cookies.accessToken;
   const refreshToken = req.cookies.refreshToken;
