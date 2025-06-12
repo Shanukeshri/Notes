@@ -47,7 +47,6 @@ body {
   position: fixed;
   padding: 0px;
   margin: 0px;
-
   font-size: 5vh;
   background-color: var(--acc);
   height: 7vh;
@@ -55,6 +54,7 @@ body {
   border: none;
   border-radius: 7px;
   box-shadow: inset 0px 0px 1vh 0px var(--sec);
+  cursor: pointer;
 }
 
 /* Desktop and up */

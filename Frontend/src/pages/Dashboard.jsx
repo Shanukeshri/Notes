@@ -20,6 +20,10 @@ function Dashboard() {
 
   const fetchHandler = async () => {
     try {
+
+      console.log("accesstoken",localStorage.getItem("accessToken"))
+      console.log("refresh ::",localStorage.getItem("refreshToken"))
+
       const fetchRes = await fetch(Backend_url + "/note", {
         headers: {
           "Content-Type": "application/json",
@@ -29,6 +33,7 @@ function Dashboard() {
         method: "GET",
         credentials: "include",
       });
+
       const res = await fetchRes.json();
 
       if(fetchRes.ok && res.msg === "refreshed" && res.accessToken){
@@ -45,7 +50,7 @@ function Dashboard() {
         if (res.msg === "Tokens absent") {
           setTimeout(() => {
             nav("/login");
-          }, 1200);
+          }, 3200);
         }
       }
 
@@ -63,9 +68,7 @@ function Dashboard() {
         isSuccess: false,
       });
       setPopupShow(true);
-      setTimeout(() => {
         nav("/login");
-      }, 1200);
     }
   };
 
