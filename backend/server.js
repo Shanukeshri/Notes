@@ -14,7 +14,9 @@ app.use(cors({
     origin: 'https://notes-frontend-rb43.onrender.com',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization','x-refresh-token']
+    allowedHeaders: ['Content-Type', 'Authorization','x-refresh-token'],
+    exposedHeaders: ['x-refresh-token']
+
 }));
 
 app.set("trust proxy", 1);
@@ -27,10 +29,8 @@ mongoose
   .catch((err) => console.error("MongoDB error:", err));
 
 const authenticate = async (req, res, next) => {
-  console.log("Authenticate middleware hit"); //debug
-  console.log(req.header.Authorization)
-  const accessToken = req.header.Authorization.split(" ")[1]
-  const refreshToken = req.header["x-refresh-token"]
+  const accessToken = req.headers.authorization
+  const refreshToken = req.headers["x-refresh-token"]
 
   if (!accessToken || !refreshToken) {
     return res.status(401).json({ msg: "Tokens absent" }); //login again
