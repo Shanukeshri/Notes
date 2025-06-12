@@ -28,7 +28,7 @@ mongoose
 
 const authenticate = async (req, res, next) => {
   console.log("Authenticate middleware hit"); //debug
-
+  console.log(req.header.Authorization)
   const accessToken = req.header.Authorization.split(" ")[1]
   const refreshToken = req.header["x-refresh-token"]
 
