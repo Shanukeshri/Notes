@@ -41,6 +41,9 @@ function Login() {
 
       const res = await fetchRes.json();
 
+      localStorage.setItem("accessToken",res.accessToken)
+      localStorage.setItem("refreshToken",res.refreshToken)
+
       //response handling
       setPopupShow(true);
       setPopupProp({

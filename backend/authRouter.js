@@ -32,21 +32,11 @@ router.post("/register", async (req, res) => {
     tokenVersion: 0,
   });
   await newUser.save();
-  res.cookie("accessToken", accessToken({ username, tokenVersion: 0 }), {
-      path: "/",  
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 10 * 60 * 1000,
-  });
-  res.cookie("refreshToken", refreshToken({ username, tokenVersion: 0 }), {
-      path: "/",  
-    httpOnly: true,
-    secure: true,
-    sameSite: "none",
-    maxAge: 5*24*60 * 60 * 1000,
-  });
-  return res.status(200).json({ msg: "Registered" });
+
+  return res.status(200).json({ msg: "Registered",
+    accessToken:accessToken({ username, tokenVersion: 0 }),
+    refreshToken:refreshToken({ username, tokenVersion: 0 })
+   });
 });
 
 router.post("/login", async (req, res) => {
@@ -64,24 +54,20 @@ router.post("/login", async (req, res) => {
   }
   exist.tokenVersion += 1;
   await exist.save();
-  res.cookie(
-    "accessToken",accessToken({ username, tokenVersion: exist.tokenVersion }),
-    {   path: "/",  httpOnly: true, secure: true, sameSite: "none", maxAge: 10 * 60 * 1000 }
-  );
-  res.cookie(
-    "refreshToken",
-    refreshToken({ username, tokenVersion: exist.tokenVersion }),
-    {   path: "/",  httpOnly: true, secure: true, sameSite: "none", maxAge: 5*24*60 * 60 * 1000 }
-  );
-  return res.status(200).json({ msg: "Logged In" });
+  return res.status(200).json({ msg: "Logged In" ,
+    accessToken:accessToken({ username, tokenVersion: exist.tokenVersion }),
+    refreshToken:refreshToken({ username, tokenVersion: exist.tokenVersion })
+
+  });
 });
 
 router.post("/logout", async (req, res) => {
   console.log("logout attempted"); //debug
 
   try {
+    const token = req.headers.authorization.split(" ")[1]
     const payload = await jwt.verify(
-      req.cookies.refreshToken,
+      token,
       process.env.Refresh_token_key
     );
     const username = payload.username;
@@ -89,8 +75,6 @@ router.post("/logout", async (req, res) => {
 
     userInstance.tokenVersion += 1;
     await userInstance.save();
-    res.clearCookie("accessToken");
-    res.clearCookie("refreshToken");
     return res.status(200).json({ msg: "Logged Out" });
   } catch (e) {
     console.log("Error while logging out :", e);

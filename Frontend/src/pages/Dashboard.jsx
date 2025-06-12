@@ -21,15 +21,24 @@ function Dashboard() {
   const fetchHandler = async () => {
     try {
       const fetchRes = await fetch(Backend_url + "/note", {
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+          "x-refresh-token": localStorage.getItem("refreshToken"),
+        },
         method: "GET",
         credentials: "include",
       });
       const res = await fetchRes.json();
-      console.log('res : ',res); //debug
+
+      if(fetchRes.ok && res.msg === "refreshed" && res.accessToken){
+        localStorage.setItem("accessToken",res.accessToken)
+        return fetchHandler()
+      }
+
       if (fetchRes.ok) {
         setNotesArray(res.noteArray);
         setLoaded(true);
-   
       }
 
       if (!fetchRes.ok) {
@@ -47,7 +56,7 @@ function Dashboard() {
       });
       setPopupShow(true);
     } catch (e) {
-      console.log("error : -- ",e);
+      console.log("error : -- ", e);
       setPopupProp({
         ...popupProp,
         msg: "Some Error Occured",

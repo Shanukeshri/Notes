@@ -1,5 +1,4 @@
 require("dotenv").config();
-const cookieParser = require("cookie-parser");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const mongoose = require("mongoose");
@@ -11,23 +10,12 @@ const cors = require("cors");
 
 const app = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://notes-frontend-rb43.onrender.com",
-];
-
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, origin);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+app.use(cors({
+    origin: 'https://notes-frontend-rb43.onrender.com',
     credentials: true,
-  })
-);
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
@@ -51,7 +39,6 @@ app.use((req, res, next) => {
 app.set("trust proxy", 1);
 
 app.use(express.json());
-app.use(cookieParser());
 
 mongoose
   .connect(process.env.MONGO_URL || "mongodb://localhost:27017/notes_backend")
@@ -61,8 +48,8 @@ mongoose
 const authenticate = async (req, res, next) => {
   console.log("Authenticate middleware hit"); //debug
 
-  const accessToken = req.cookies.accessToken;
-  const refreshToken = req.cookies.refreshToken;
+  const accessToken = req.header.Authorization.split(" ")[1]
+  const refreshToken = req.header["x-refresh-token"]
 
   if (!accessToken || !refreshToken) {
     return res.status(401).json({ msg: "Tokens absent" }); //login again
@@ -102,15 +89,12 @@ const authenticate = async (req, res, next) => {
         username: refreshPayload.username,
         tokenVersion: refreshPayload.tokenVersion,
       });
-      res.cookie("accessToken", newToken, {
-          path: "/",  
-        httpOnly: true,
-        secure: true,
-        sameSite: "none",
-        maxAge: 10 * 60 * 1000,
-      });
-      req.cookies.accessToken = newToken;
-      return authenticate(req, res, next);
+
+      return res.status(200).json({
+        msg:"refreshed",
+        accessToken:newToken,
+        lastPath:req.originalUrl
+      })
     } catch (e) {
       if (e.name === "JsonWebTokenError") {
         return res.status(401).json({ msg: "Unauthorised 4" });
