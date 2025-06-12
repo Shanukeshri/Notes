@@ -24,6 +24,7 @@ function Sidebar() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          "x-refresh-token":`${localStorage.getItem('refreshToken')}`
         },
         credentials: "include",
       });

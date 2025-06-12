@@ -65,8 +65,8 @@ router.post("/logout", async (req, res) => {
   console.log("logout attempted"); //debug
 
   try {
-    const token = req.headers.authorization.split(" ")[1]
-    const payload = await jwt.verify(
+    const token = req.headers["x-refresh-token"]
+    const payload = jwt.verify(
       token,
       process.env.Refresh_token_key
     );

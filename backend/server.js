@@ -29,7 +29,7 @@ mongoose
   .catch((err) => console.error("MongoDB error:", err));
 
 const authenticate = async (req, res, next) => {
-  const accessToken = req.headers.authorization
+  const accessToken = req.headers.authorization.split()[1]
   const refreshToken = req.headers["x-refresh-token"]
 
   if (!accessToken || !refreshToken) {
