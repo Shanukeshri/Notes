@@ -14,27 +14,8 @@ app.use(cors({
     origin: 'https://notes-frontend-rb43.onrender.com',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    allowedHeaders: ['Content-Type', 'Authorization','x-refresh-token']
 }));
-
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header("Access-Control-Allow-Origin", "https://notes-frontend-rb43.onrender.com");
-  res.header(
-    "Access-Control-Allow-Methods",
-    "GET,PUT,POST,DELETE,UPDATE,OPTIONS"
-  );
-  res.header(
-    "Access-Control-Allow-Headers",
-    "X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept"
-  );
-  next();
-});
-
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
 
 app.set("trust proxy", 1);
 
