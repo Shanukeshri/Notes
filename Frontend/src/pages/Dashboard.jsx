@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import Sidebar from "../pages/Sidebar";
 import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
+import fetchHandler from "../handlers/fetchHandler";
+import addHandler from "../handlers/addHandler";
 
 const Backend_url = import.meta.env.VITE_BACKEND_URL;
 
@@ -18,63 +20,26 @@ function Dashboard() {
 
   const [notesArray, setNotesArray] = useState([]);
 
-  const fetchHandler = async () => {
-    try {
+  useEffect(() => {
+    setTimeout(() =>
+      fetchHandler(
+        nav,
+        setNotesArray,
+        setLoaded,
+        popupProp,
+        setPopupProp,
+        setPopupShow
+      ),0
+    );
+  }, []);
 
-      console.log("accesstoken",localStorage.getItem("accessToken"))
-      console.log("refresh ::",localStorage.getItem("refreshToken"))
-
-      const fetchRes = await fetch(Backend_url + "/note", {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
-          "x-refresh-token": localStorage.getItem("refreshToken"),
-        },
-        method: "GET",
-        credentials: "include",
-      });
-
-      const res = await fetchRes.json();
-
-      if(fetchRes.ok && res.msg === "refreshed" && res.accessToken){
-        localStorage.setItem("accessToken",res.accessToken)
-        return fetchHandler()
-      }
-
-      if (fetchRes.ok) {
-        setNotesArray(res.noteArray);
-        setLoaded(true);
-      }
-
-      if (!fetchRes.ok) {
-        if (res.msg === "Tokens absent") {
-          setTimeout(() => {
-            nav("/login");
-          }, 3200);
-        }
-      }
-
-      setPopupProp({
-        ...popupProp,
-        msg: res.msg || "Loaded",
-        isSuccess: fetchRes.ok,
-      });
-      setPopupShow(true);
-    } catch (e) {
-      console.log("error : -- ", e);
-      setPopupProp({
-        ...popupProp,
-        msg: "Some Error Occured",
-        isSuccess: false,
-      });
-      setPopupShow(true);
-        nav("/login");
-    }
+  const onAddClick = () => {
+    addHandler(nav);
   };
 
-  useEffect(() => {
-    fetchHandler();
-  }, []);
+  const noteOpener = (_id)=>{
+    nav('/editor' , {state:{_id}})
+  }
 
   return (
     <>
@@ -84,9 +49,9 @@ function Dashboard() {
         <div className={style.body}>
           {notesArray.map((ele) => {
             return (
-              <div className={style.note} key={ele._id}>
+              <div className={style.note} key={ele._id} onClick={() =>{noteOpener(ele._id)}}>
                 <p className={style.title}>{ele.title}</p>
-                <p className={style.text}>{ele.body}</p>
+                <p className={style.text}>{ele.body.length>40?ele.body.slice(0,40)+"...":ele.body}</p>
                 <div></div>
               </div>
             );
@@ -94,7 +59,9 @@ function Dashboard() {
         </div>
       )}
 
-      <button className={style.add}>+</button>
+      <button className={style.add} onClick={onAddClick}>
+        +
+      </button>
 
       <Sidebar></Sidebar>
     </>

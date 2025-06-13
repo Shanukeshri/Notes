@@ -93,6 +93,9 @@ function Sidebar() {
         <button className={style.sidebarbutton} onClick={logoutHandler}>
           Logout
         </button>
+        <button className={style.sidebarbutton} onClick={()=>{nav("/")}}>
+          Dashboard
+        </button>
       </div>
     </>
   );

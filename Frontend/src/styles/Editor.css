@@ -23,6 +23,7 @@ html {
 }
 
 .textarea {
+  resize:none;
   z-index: 990;
   position: fixed;
   top: 13vh;

@@ -5,20 +5,30 @@ const jwt = require("jsonwebtoken");
 
 router.get("/", async (req, res) => {
 
-  console.log("data fetch tried")  //debug
 
   const username = req.username;
+ 
+
+  if(req.query && req.query._id){
+    const {_id} = req.query
+    const noteToSend = await note.findOne({_id})
+    return res.status(200).json({ "note":noteToSend });
+  }
+
   const noteArray = await note.find({ username }).sort({ dateUpdated: -1 });
   if (noteArray.length == 0) {
     return res.status(400).json({ msg: "No notes found" });
   }
 
-  return res.status(200).json({ noteArray });
+  return res.status(200).json({noteArray });
 });
 
 router.post("/", async (req, res) => {
-  if (!req.body.body) {
-    return res.status(400).json({ msg: "No note present to be added" });
+
+  console.log("data addition tried")  //debug
+
+  if (!req.body.title) {
+    return res.status(400).json({ msg: "Title not present" });
   }
   const username = req.username;
 
@@ -29,8 +39,11 @@ router.post("/", async (req, res) => {
     title,
     body,
   });
-  await newNote.save();
-  return res.status(200).json({ msg: "Note Added Successfully" });
+  const addedNote = await newNote.save();
+  return res.status(200).json({ 
+    _id:addedNote._id,
+    msg: "Note Added Successfully" 
+  });
 });
 
 router.put("/", async (req, res) => {

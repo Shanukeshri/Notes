@@ -29,8 +29,15 @@ body {
   background-color: var(--sec);
   margin: 0vh 1vh 1vh 1vh;
   border-radius: 10px;
-  box-shadow: inset 0px 0px 3vh 0px rgba(255, 255, 255, 0.208);
+  box-shadow: inset 0px 0px 3vh 0px rgba(24, 24, 24, 0.216);
+  height: 14vh;
+  width:auto;
+  cursor: pointer;
 }
+.note:active{
+  box-shadow: inset 0px 0px 1.5vh 0px rgba(24, 24, 24, 0.216);
+}
+
 .title {
   margin-top: 2vh;
   font-size: clamp(2vh, 3vh, 5vh);
@@ -38,6 +45,7 @@ body {
 }
 
 .text {
+  margin:0px;
   margin-left: 3vw;
   color: rgb(36, 36, 36);
 }

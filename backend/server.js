@@ -43,7 +43,6 @@ const authenticate = async (req, res, next) => {
   const accessToken = req.headers.authorization.split(" ")[1]
   const refreshToken = req.headers["x-refresh-token"]
 
-  console.log(req.headers.authorization,"refresh token : ",refreshToken)
 
   if (!accessToken || !refreshToken) {
     return res.status(401).json({ msg: "Tokens absent" }); //login again
@@ -76,7 +75,6 @@ const authenticate = async (req, res, next) => {
         username: refreshPayload.username,
       });
       if (userInstance.tokenVersion !== refreshPayload.tokenVersion) {
-        console.log("user : ", userInstance, "\npayload : ", refreshPayload); //debug
         return res.status(401).json({ msg: "Unauthorised 3" });
       }
       const newToken = accessTokenCreate({
