@@ -11,8 +11,6 @@ function Editor() {
   localStorage.setItem("current_id", state._id);
   const _id = localStorage.getItem("current_id");
 
-  console.log("current _id is: ",_id)
-
   const [bodyText, setBodyText] = useState("");
   const [titleText, setTitleText] = useState("");
   const id = useRef();
@@ -21,19 +19,19 @@ function Editor() {
 
   const editorFetchHandler = async () => {
     try {
-      const fetchRes = await fetch(Backend_url + "/note"+`?_id=${_id}`, {
+      const fetchRes = await fetch(Backend_url + "/note" + `?_id=${_id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           "x-refresh-token": localStorage.getItem("refreshToken"),
         },
         method: "GET",
-        credentials: "include"
+        credentials: "include",
       });
       const res = await fetchRes.json();
 
-      console.log("res : ", res)
-      console.log("res.note : ", res.note)
+      console.log("res : ", res);
+      console.log("res.note : ", res.note);
 
       if (fetchRes.ok && res.msg === "refreshed" && res.accessToken) {
         localStorage.setItem("accessToken", res.accessToken);
@@ -42,7 +40,6 @@ function Editor() {
       if (res.msg === "Please login again") {
         nav("/login");
       }
-
 
       if (res.note.title) {
         setTitleText(res.note.title);
@@ -53,32 +50,7 @@ function Editor() {
     }
   };
 
-  const saveHandler = async()=>{
-     const fetchRes = await fetch(Backend_url + "/note", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-        "x-refresh-token": localStorage.getItem("refreshToken"),
-      },
-      method: "PUT",
-      credentials: "include",
-      body:JSON.stringify({
-        "_id":_id,
-        "title":titleText,
-        "body":bodyText
-      })
-    });
-
-    const res = await fetchRes.json();
-
-    if (fetchRes.ok && res.msg === "refreshed" && res.accessToken) {
-      localStorage.setItem("accessToken", res.accessToken);
-      return editorFetchHandler();
-    }
-    if (res.msg === "Please login again") {
-      nav("/login");
-    }
-  }
+  const saveHandler = async () => {};
 
   const bodyHandler = async (e) => {
     setBodyText(e.target.value);
@@ -88,7 +60,30 @@ function Editor() {
     id.current = setTimeout(async () => {
       paraRef.current.textContent = "saving...";
 
-      saveHandler()
+      const fetchRes = await fetch(Backend_url + "/note", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "x-refresh-token": localStorage.getItem("refreshToken"),
+        },
+        method: "PUT",
+        credentials: "include",
+        body: JSON.stringify({
+          _id: _id,
+          title: titleText,
+          body: e.target.value,
+        }),
+      });
+
+      const res = await fetchRes.json();
+
+      if (fetchRes.ok && res.msg === "refreshed" && res.accessToken) {
+        localStorage.setItem("accessToken", res.accessToken);
+        return editorFetchHandler();
+      }
+      if (res.msg === "Please login again") {
+        nav("/login");
+      }
 
       setTimeout(() => {
         paraRef.current.textContent = "";
@@ -104,7 +99,30 @@ function Editor() {
     id2.current = setTimeout(async () => {
       paraRef.current.textContent = "saving...";
 
-      saveHandler()
+      const fetchRes = await fetch(Backend_url + "/note", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          "x-refresh-token": localStorage.getItem("refreshToken"),
+        },
+        method: "PUT",
+        credentials: "include",
+        body: JSON.stringify({
+          _id: _id,
+          title: e.target.value,
+          body: bodyText,
+        }),
+      });
+
+      const res = await fetchRes.json();
+
+      if (fetchRes.ok && res.msg === "refreshed" && res.accessToken) {
+        localStorage.setItem("accessToken", res.accessToken);
+        return editorFetchHandler();
+      }
+      if (res.msg === "Please login again") {
+        nav("/login");
+      }
 
       setTimeout(() => {
         paraRef.current.textContent = "";
