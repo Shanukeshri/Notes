@@ -26,7 +26,6 @@ html::before {
 
 .headerflex {
   height: 25vh;
-  border:solid 1px red;
   padding-top: 5vh;
   display: flex;
   flex-direction: column;
