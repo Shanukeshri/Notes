@@ -14,7 +14,8 @@ app.use(cors({
     origin: function(origin, callback) {
         const allowedOrigins = [
             'https://notes-frontend-rb43.onrender.com',
-            'http://localhost:5173'
+            'http://localhost:5173',
+            process.env.localhostMobile
         ];
 
         if (!origin) return callback(null, true);
@@ -54,7 +55,7 @@ const authenticate = async (req, res, next) => {
       username: accessPayload.username,
     });
     if (accessPayload.tokenVersion !== userInstance.tokenVersion) {
-      return res.status(401).json({ msg: "Unauthorised 1" });
+      return res.status(401).json({ msg: "Unauthorised" });
     }
     if (req.username) {
       return res.status(401).json({ msg: "Parameter Not Required" });
@@ -63,7 +64,7 @@ const authenticate = async (req, res, next) => {
     return next();
   } catch (e) {
     if (e.name === "JsonWebTokenError") {
-      return res.status(401).json({ msg: "Unauthorised 2" });
+      return res.status(401).json({ msg: "Unauthorised" });
     }
     try {
       //refreshing access token
@@ -75,7 +76,7 @@ const authenticate = async (req, res, next) => {
         username: refreshPayload.username,
       });
       if (userInstance.tokenVersion !== refreshPayload.tokenVersion) {
-        return res.status(401).json({ msg: "Unauthorised 3" });
+        return res.status(401).json({ msg: "Unauthorised" });
       }
       const newToken = accessTokenCreate({
         username: refreshPayload.username,
@@ -89,7 +90,7 @@ const authenticate = async (req, res, next) => {
       })
     } catch (e) {
       if (e.name === "JsonWebTokenError") {
-        return res.status(401).json({ msg: "Unauthorised 4" });
+        return res.status(401).json({ msg: "Unauthorised" });
       } else if (e.name === "TokenExpiredError") {
         return res.status(400).json({ msg: "Please login again" });
       }

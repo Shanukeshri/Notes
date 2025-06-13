@@ -35,10 +35,11 @@ const fetchHandler = async (
     }
 
     if (!fetchRes.ok) {
-      if (res.msg === "Tokens absent") {
+      if (res.msg === "Tokens absent" || res.msg ==="Unauthorised") {
+        console.log(res.status)
         setTimeout(() => {
           nav("/login");
-        }, 3200);
+        }, 1200);
       }
     }
 
