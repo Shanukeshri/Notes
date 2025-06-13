@@ -89,6 +89,7 @@ function Sidebar() {
           <div className={style.icon}>
             <img className={style.iconimg} src={icon} />
           </div>
+          <p className={style.username}>{`${localStorage.getItem("currentUser")}`}</p>
         </div>
         <button className={style.sidebarbutton} onClick={logoutHandler}>
           Logout

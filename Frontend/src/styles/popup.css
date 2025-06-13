@@ -15,11 +15,11 @@
 }
 
 .popup.success {
-  box-shadow: inset 0px 0px 3vh #00ff0860, 0px 0px 1vh rgba(0, 0, 0, 0.317);
+  box-shadow: inset 0px 0px 1cqb #005f039c, 0px 0px 1vh rgba(0, 0, 0, 0.317);
 }
 
 .popup.failure {
-  box-shadow: inset 0px 0px 3vh #ff110060, 0px 0px 1vh rgba(0, 0, 0, 0.317);
+  box-shadow: inset 0px 0px 1vh #58060095, 0px 0px 1vh rgba(0, 0, 0, 0.317);
 }
 
 @keyframes slideIn {

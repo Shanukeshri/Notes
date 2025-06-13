@@ -1,5 +1,11 @@
-.imgheader{
-  box-shadow:0px 0p;
+.imgheader {
+  position: fixed;
+  top: 2vh;
+  width: 100%;
+  padding-bottom: 2vh;
+  box-shadow:0px 1px rgba(0, 0, 0, 0.393);
+  display: flex;
+  align-items: center;
 }
 
 .header {
@@ -11,12 +17,11 @@
   justify-content: center;
   position: fixed;
   height: 12vh;
-  left:6px;
-  right:6px;
+  left: 6px;
+  right: 6px;
   background-color: var(--pri);
   padding: 0px 0px 0px 2vw;
-  box-shadow:0px 1px 0px rgba(0, 0, 0, 0.157);
-
+  box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.157);
 }
 .heading {
   z-index: 997;
@@ -42,7 +47,7 @@
 
 .sidebar {
   padding: 0px;
-  padding-top: 8.1vh;
+  padding-top: 16.1vh;
   z-index: 999;
   position: fixed;
   top: 0%;
@@ -70,21 +75,19 @@
   box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.515);
   font-size: large;
   font-weight: bolder;
-  cursor:pointer;
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.609);
 }
 .sidebar-button:active {
   box-shadow: inset 0px 0px 15px rgba(0, 0, 0, 0.115);
 }
 
 .icon {
-  position: fixed;
-  top: 2vh;
-  left: 50%;
-  height: 7vh;
-  width: 7vh;
+  margin-left: 2vh;
+  height: 10vh;
+  width: 10vh;
   background-color: var(--acc);
   border-radius: 5vh;
-  transform: translateX(-50%);
 }
 
 .iconimg {
@@ -92,14 +95,28 @@
   width: auto;
 }
 
+.username {
+  margin: 0px;
+  padding: 0px;
+  margin-left: 2vh;
+  font-size: xx-large;
+  white-space: nowrap; 
+  overflow: hidden; 
+  text-overflow: ellipsis;
+  color:rgba(0, 0, 0, 0.997)
+}
+
 /* Desktop and up */
 @media (min-width: 768px) {
   .sidebar {
-    padding-top: 12.1vh;
+    padding-top: 15.1vh;
     width: 25%;
   }
   .icon {
     height: 10vh;
     width: 10vh;
+  }
+  .sidebarbutton {
+    margin-bottom: -2vh;
   }
 }

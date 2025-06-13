@@ -25,7 +25,7 @@ function Login() {
   const changeHandler = (e) => {
     setData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trimEnd(),
     });
   };
 
@@ -53,6 +53,7 @@ function Login() {
       });
 
       if (fetchRes.ok) {
+        localStorage.setItem("currentUser",formData.username)
         setTimeout(()=>{
           nav("/");
         },1000)
@@ -83,7 +84,7 @@ function Login() {
         <div className="inputflex">
           <input
             name="username"
-            value={formData.username}
+            value={formData.username.trimEnd()}
             className="usnminput"
             placeholder="Username"
             onChange={changeHandler}
