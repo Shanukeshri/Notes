@@ -13,7 +13,7 @@ const app = express();
 app.use(cors({
     origin: function(origin, callback) {
         const allowedOrigins = [
-            'https://notes-frontend-rb43.onrender.com',
+            process.env.FRONTEND_URL,
             'http://localhost:5173'
         ];
 
