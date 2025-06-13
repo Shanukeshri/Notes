@@ -39,7 +39,7 @@ const fetchHandler = async (
         console.log(res.status)
         setTimeout(() => {
           nav("/login");
-        }, 1200);
+        }, 0);
       }
     }
 
