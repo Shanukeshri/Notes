@@ -14,8 +14,7 @@ app.use(cors({
     origin: function(origin, callback) {
         const allowedOrigins = [
             'https://notes-frontend-rb43.onrender.com',
-            'http://localhost:5173',
-            process.env.localhostMobile
+            'http://localhost:5173'
         ];
 
         if (!origin) return callback(null, true);
