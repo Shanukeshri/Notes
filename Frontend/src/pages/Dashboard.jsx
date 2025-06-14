@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import Popup from "./Popup";
 import fetchHandler from "../handlers/fetchHandler";
 import addHandler from "../handlers/addHandler";
+import Loading from "./Loading";
 
 const Backend_url = import.meta.env.VITE_BACKEND_URL;
 
@@ -44,8 +45,8 @@ function Dashboard() {
   return (
     <>
       {popupShow && <Popup {...popupProp} setPopupShow={setPopupShow} />}
-
-      {loaded && (
+      {!loaded && <Loading></Loading>}
+      {loaded && notesArray && (
         <div className={style.body}>
           {notesArray.map((ele) => {
             return (

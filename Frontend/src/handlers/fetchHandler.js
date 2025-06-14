@@ -33,6 +33,10 @@ const fetchHandler = async (
       setNotesArray(res.noteArray);
       setLoaded(true);
     }
+    if(!fetchRes.ok && res.msg === "No notes found"){
+      setLoaded(true)
+    }
+
 
     if (!fetchRes.ok) {
       if (res.msg === "Tokens absent" || res.msg ==="Unauthorised") {

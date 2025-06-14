@@ -53,10 +53,11 @@ function Register() {
       });
 
       if (fetchRes.ok) {
+        localStorage.setItem("currentUser",formData.username)
         setTimeout(()=>{
           nav("/");
         },1000)
-      }
+      } 
     } catch (e) {
       setPopupShow(true);
       setPopupProp({
